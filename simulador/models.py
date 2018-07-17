@@ -32,7 +32,7 @@ class itemservico(models.Model):
     val_recolhimentofundo = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     val_outros = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
     val_totalitemservico = models.DecimalField(max_digits=12, decimal_places=2, blank=True, null=True)
-    servico = models.ForeignKey(servico, default='', blank=True, null=True)  # Chave estrangeira da Classe Serviço
+    servico = models.ForeignKey(servico, default='', blank=True, null=True, on_delete=models.CASCADE)  # Chave estrangeira da Classe Serviço
     ind_selecionado = models.BooleanField(default=False)
 
     # para melhor visualizar no localhost\admin
