@@ -1,0 +1,196 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html dir="ltr">
+<head>
+<script>
+    var themeHasJQuery = !!window.jQuery;
+</script>
+<script type="text/javascript" src="{% static 'simulador/assets/js/jquery.js' %}"></script>
+<script>
+    window._$ = jQuery.noConflict(themeHasJQuery);
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="{% static 'simulador/assets/css/bootstrap.css' %}" media="screen" />
+<script type="text/javascript" src="{% static 'simulador/assets/js/bootstrap.min.js' %}"></script>
+<!--[if lte IE 9]>
+<link rel="stylesheet" href="{% static 'simulador/assets/css/layout.ie.css' %}">
+<script src="{% static 'simulador/assets/js/layout.ie.js' %}"></script>
+<![endif]-->
+<link class="" href='//fonts.googleapis.com/css?family=Lato:100,100italic,300,300italic,regular,italic,700,700italic,900,900italic&subset=latin' rel='stylesheet' type='text/css'>
+<script type="text/javascript" src="{% static 'simulador/assets/js/layout.core.js' %}"></script>
+<script src="{% static 'simulador/assets/js/CloudZoom.js' %}"></script>
+<title>Preço</title>
+<link rel="stylesheet" href="{% static 'simulador/assets/css/style.css' %}">
+<script src="{% static 'simulador/assets/js/script.js' %}"></script>
+<meta charset="utf-8">
+<script defer src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
+<meta name="keywords" content="HTML, CSS, JavaScript">
+<style>
+a {
+	transition: color 250ms linear;
+}
+</style>
+</head>
+<body class=" bootstrap bd-body-7  bd-pagebackground bd-margins">
+<div class=" bd-stretchtobottom-2 bd-stretch-to-bottom" data-control-selector=".bd-content-12">
+<div class=" bd-content-12 ">
+<div class=" bd-htmlcontent-33 bd-margins"
+ data-page-id="page.37">
+<section class=" bd-section-35 bd-tagstyles" id="passos" data-section-title="Passos">
+  <div class="bd-container-inner bd-margins clearfix">
+    <div class=" bd-customhtml-191 bd-tagstyles">
+      <div class="bd-container-inner bd-content-element"> Por favor, preencha corretamente todas as informações abaixo e entraremos em contato para te ajudar. </div>
+    </div>
+
+    <!--<form class=" bd-form-13 " action="#" name="form-name" method="post">-->
+    <form class=" bd-form-13 " action="#" name="form-name" method="GET">
+      {% csrf_token %}
+      <div class="bd-container-inner">
+      <div class="container-fluid">
+      <div class=" bd-layoutcontainer-17 bd-columns bd-no-margins">
+      <div class="bd-container-inner">
+      <div class="container-fluid">
+      <div class="row ">
+      <div class=" bd-columnwrapper-44  col-lg-8 col-sm-6">
+      <div class="bd-layoutcolumn-44 bd-column" >
+      <div class="bd-vertical-align-wrapper">
+      <div class=" bd-select-5 form-group">
+        <label class="bd-form-label">Serviço</label>
+        <!--<select class="bd-form-input" title="Serviço">-->
+        <!--<option value="value1">Option 1</option>-->
+        <!--<option value="value2">Option 2</option>-->
+        <!--</select>-->
+        {{filter.form.servico}} </div>
+
+      <!--<a href="#" class="bd-linkbutton-3 bd-no-margins  bd-button  bd-own-margins bd-content-element"    >-->
+      <!--Ok-->
+      <!--</a>-->
+      <button type = "submit" class="bd-linkbutton-3 bd-no-margins  bd-button  bd-own-margins bd-content-element"> Consultar </button>
+    </form>
+
+
+    <tbody>
+    <div class=" bd-customhtml-4 bd-tagstyles">
+      <div class="bd-container-inner bd-content-element">
+        <table id="table" width="100%" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <th>Descrição</th>
+            <th>Quantidade</th>
+            <th style="text-align:right; padding-right:30px">Valor</th>
+            <th>Recolhimento Fundo (%)</th>
+            <th>Outros</th>
+            <th>Valor Total</th>
+            <th><label>
+                <input type="checkbox" id="ckTodos">
+                Todos</label></th>
+          </tr>
+
+          {% for item in response.object_list %}
+          <tr>
+            <td>{{ item.desc_itemservico }}</td>
+            <td style="text-align:center";>{{ item.qtd_itemservico }}</td>
+            <!--<td style="text-align:right";><input type="text" name='item.qtd_itemservico' id="item.qtd_itemservico" value="1" min="1" max="100" step="1"></td>-->
+            <td style="text-align:right; padding-right:30px">{{ item.val_itemservico }}</td>
+            <td style="text-align:right; padding-right:30px">{{ item.val_recolhimentofundo }}</td>
+            <td style="text-align:right; padding-right:30px">{{ item.val_outros }}</td>
+            <td style="text-align:right; padding-right:30px">{{ item.val_totalitemservico }}</td>
+            <td><input type="checkbox"></td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+  </div>
+  </div>
+  </div>
+  <div class=" bd-columnwrapper-50 col-lg-4 col-sm-6">
+    <div class="bd-layoutcolumn-50 bd-column" >
+      <div class="bd-vertical-align-wrapper">
+        <div class=" bd-customhtml-12 bd-tagstyles"> <span class="bd-container-inner bd-content-element">
+          <!--<strong>Total:</strong> R$0.000,00-->
+          <div style=" float:left; width:100%;"><strong style="float:left;">Total: R$</strong><div style="float:left; margin-left:5px; margin-right:50px;" id="output"></div></div>
+        </div>
+      </div>
+
+      <!--<a href="" class="bd-linkbutton-12  bd-button  bd-own-margins bd-content-element"    >-->
+      <!--Processar-->
+      <!--</a>-->
+      <div style=" float:left; width:100%;"><input type="button" value="Processar" id="btProcessar" class="bd-linkbutton-12  bd-button  bd-own-margins bd-content-element" ></div>
+    </div>
+  </div>
+  </div>
+  <script type="text/javascript" >
+                  //Marca ou desmarca todas a linhas
+                  var ckTodos = document.getElementById("ckTodos");
+                  ckTodos.addEventListener("change", function() {
+                    var table = document.getElementById("table")
+                    var ckMarcar = table.getElementsByTagName("input");
+                    var status = ckTodos.checked;
+                    for (var i = 1; i < ckMarcar.length; i++){
+                        ckMarcar[i].checked = status;
+                    }
+                  });
+
+
+                function float2moeda(num) {
+                    x = 0;
+                    if(num<0) {
+                        num = Math.abs(num);
+                        x = 1;
+                    }
+
+                    if(isNaN(num)) num = "0";
+                    cents = Math.floor((num*100+0.5)%100);
+
+                    num = Math.floor((num*100+0.5)/100).toString();
+
+                    if(cents < 10) cents = "0" + cents;
+                        for (var i = 0; i < Math.floor((num.length-(1+i))/3); i++)
+                            num = num.substring(0,num.length-(4*i+3))+'.'
+                                +num.substring(num.length-(4*i+3));
+
+                    ret = num + ',' + cents;
+
+                    if (x == 1) ret = ' - ' + ret;return ret;
+                }
+
+
+                  //Soma o valor de todas as linhas selecionadas
+                  var btProcessar = document.getElementById("btProcessar");
+                  btProcessar.addEventListener("click", function() {
+                    var output = document.getElementById('output');
+                    var table = document.getElementById("table")
+                    var ckMarcar = table.getElementsByTagName("input");
+                    var valor = 0;
+                    var total = 0;
+                    for (var i = 1; i < ckMarcar.length; i++){
+                        if (ckMarcar[i].checked) {
+                            valor = parseFloat(table.rows[i].cells[5].textContent.replace(',', '.'), '$###,###.##');
+                            total = total + valor;
+                        }
+                    }
+                    total = float2moeda(total);
+                    output.innerHTML = total;
+                  });
+
+    </script>
+  </tbody>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+  </div>
+
+  <!--</form>-->
+
+  </div>
+</section>
+</div>
+</div>
+</div>
+<div data-smooth-scroll data-animation-time="250" class=" bd-smoothscroll-3"><a href="#" class=" bd-backtotop-1 "> <span class="bd-icon-67 bd-icon "></span> </a></div>
+</body>
+</html>
